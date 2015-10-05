@@ -1,0 +1,19 @@
+html
+  head
+    title Werewolves are the tits!
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js")
+
+  body
+    h1 Werewolves are the tits!
+
+    a(href="main")#home Home
+    a(href="faq")#faq FAQ
+    a(href="about")#about About
+
+    section#content
+  
+    if init
+      script.
+        var init = '#{init}'
+    script(type="text/javascript", src="app.js")
+   
