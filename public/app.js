@@ -1,9 +1,10 @@
 var homeButton  = document.getElementById('home'),
     faqButton   = document.getElementById('faq'),
     aboutButton = document.getElementById('about'),
-    content     = document.getElementById('content');
+    content     = document.getElementById('content'),
+    previousHTML = null;
 
-homeButton.addEventListener('click', getJSON.bind(this, '/main'), false);
+homeButton.addEventListener('click', getJSON.bind(this, '/'), false);
 faqButton.addEventListener('click', getJSON.bind(this, '/faq'), false);
 aboutButton.addEventListener('click', getJSON.bind(this, '/about'), false);
 
@@ -20,7 +21,7 @@ function getJSON (url, e) {
   .set('X-Requested-With', 'XMLHttpRequest')
   .end(function(err, res) {
     content.innerHTML = render(JSON.parse(res.text)); 
-    updateAddressBar(url);
+    if(e) updateAddressBar(url);
   });
 }
 
@@ -28,9 +29,6 @@ function updateAddressBar (url) {
   history.pushState(null, null, url);
 };
 
-if(init) {
-  getJSON('/'+init);
-} else {
-  getJSON('/main');
-}
-
+window.onpopstate = function (e) {
+  getJSON(window.location.pathname);
+};

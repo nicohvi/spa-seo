@@ -6,14 +6,15 @@ html
   body
     h1 Werewolves are the tits!
 
-    a(href="main")#home Home
-    a(href="faq")#faq FAQ
-    a(href="about")#about About
+    a(href="/")#home Home
+    a(href="/faq")#faq FAQ
+    a(href="/about")#about About
 
     section#content
+      h3= title
+      p= body
+      if image
+        img(src=image)
   
-    if init
-      script.
-        var init = '#{init}'
     script(type="text/javascript", src="app.js")
    

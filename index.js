@@ -10,15 +10,8 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(session({secret: '1234567890QWERTY'}));
 
-function isCrawler (req) {
-  return req.headers['user-agent'].indexOf('Googlebot') > -1;
-}
-
 app.get('/', (req, res) => {
-  res.render('index', { init: req.session.init });
-});
 
-app.get('/main', (req, res) => {
   var title = 'This is the main page!',
       body = 'Werewolf sweaters are amazing things, and there are '+
     'many trends that you should be aware of. For instance ' +
@@ -26,12 +19,7 @@ app.get('/main', (req, res) => {
     'swedish are rather passè';
 
  if(!req.xhr) {
-    if(!isCrawler(req)) {
-      req.session.init = 'main';
-      return res.redirect('/');
-    }
- 
-    return res.render('main', 
+    return res.render('index', 
       { 
         title: title,
         body: body
@@ -48,12 +36,7 @@ app.get('/faq', (req, res) => {
 
   if(!req.xhr) {
 
-    if(!isCrawler(req)) {
-      req.session.init = 'faq';
-      return res.redirect('/');
-    }
-
-    return res.render('faq', 
+    return res.render('index', 
       { 
         title: title,
         body: body
@@ -73,7 +56,7 @@ app.get('/about', (req, res) => {
       image = 'http://static1.squarespace.com/static/5075b8a6e4b01e64d21509a8/5075d3b484aeb5b6dbfe831c/5075d5c6c4aa988a6fd04338/1349899718837/popped-collar-2.jpg';
 
   if(!req.xhr) {
-    return res.render('about', 
+    return res.render('index', 
       { 
         title: title,
         body: body,
